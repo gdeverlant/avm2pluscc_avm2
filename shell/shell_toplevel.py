@@ -6,6 +6,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from __future__ import absolute_import, print_function
 import os
 import shutil
 import stat
@@ -43,7 +44,7 @@ if warn_notwriteable('../generated/shell_toplevel.abc'):
     sys.exit(0) # exit 0 so build will continue
 
 # compile builtins
-os.system(asc+" -import ../generated/builtin.abc -builtin "+configs+" -apiversioning -out shell_toplevel shell_toplevel.as Domain.as ../extensions/Sampler.as ../extensions/Trace.as Endian.as Worker.as WorkerDomain.as")
+os.system(asc+" -import ../generated/builtin.abc -builtin "+configs+" -apiversioning -out shell_toplevel shell_toplevel.as Domain.as IKernel.as ShellPosix.as ../extensions/Sampler.as ../extensions/Trace.as Endian.as Worker.as WorkerDomain.as")
 
 rm("shell_toplevel.h")
 rm("shell_toplevel.cpp")

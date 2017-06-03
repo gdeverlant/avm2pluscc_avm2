@@ -3,6 +3,7 @@
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at http://mozilla.org/MPL/2.0/.
 
+from __future__ import absolute_import, print_function
 import os
 import sys
 import build.process
@@ -10,14 +11,14 @@ import re
 
 def writeFileIfChanged(path, contents):
     """Write some contents to a file. Avoids modifying the file timestamp if the file contents already match."""
-    print "Generating " + path + "...",
+    print("Generating " + path + "...")
     try:
         outf = open(path, "r")
         oldcontents = outf.read()
         outf.close()
 
         if oldcontents == contents:
-            print "not changed"
+            print("not changed")
             return
     except IOError:
         pass
@@ -53,7 +54,7 @@ def _configSub(ostest, cputest, options):
     if re.search(r'^i(\d86|86pc|x86)$', cputest):
         cpu = 'i686'
     elif re.search('^(x86_64|amd64)$', cputest):
-        cpu = 'x86_64'
+        cpu = 'i686' # force 32bit builds for now
     elif re.search('^(ppc64|powerpc64)$', cputest):
         cpu = 'ppc64'
     elif re.search('^(ppc|powerpc|Power Macintosh)$', cputest):
@@ -231,6 +232,9 @@ class Configuration:
 
             if 'CXX' in os.environ:
                 self._acvars['CXX'] = os.environ['CXX']
+                self._acvars['CXXFLAGS'] += os.environ.get('CXXFLAGS', '')
+                self._acvars['CFLAGS'] += os.environ.get('CFLAGS', '')
+                self._acvars['LDFLAGS'] += os.environ.get('LDFLAGS', '')
             elif self._target[1] == 'i686':
                 self._acvars['CXX'] = 'g++'
                 self._acvars['CXXFLAGS'] += ' -arch i686 '
