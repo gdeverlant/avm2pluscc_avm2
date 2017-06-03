@@ -31,3 +31,7 @@ Makefile.in
 # http://www.gnu.org/software/texinfo
 
 /texinfo.tex
+*.opensdf
+*.sdf
+*.suo
+avmplus/platform/win32/obj2010/
