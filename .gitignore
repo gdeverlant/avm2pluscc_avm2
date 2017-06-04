@@ -35,3 +35,4 @@ Makefile.in
 *.sdf
 *.suo
 avmplus/platform/win32/obj2010/
+avmplus/platform/win32/obj2013/

@@ -7,6 +7,8 @@
 #include "avmshell.h"
 #include "zlib.h"
 
+#include "../other-licenses/lzma/LzmaLib.h"
+
 namespace avmshell
 {
     // it's silly to write this again, but i'm being lazy.
@@ -93,7 +95,8 @@ namespace avmshell
         uint32_t magic = swf[0] | swf[1]<<8 | swf[2]<<16;
         const uint32_t SWF = 'S'<<16 | 'W'<<8 | 'F';
         const uint32_t SWC = 'S'<<16 | 'W'<<8 | 'C';
-        return magic == SWF || magic == SWC;
+        const uint32_t SWZ = 'S' << 16 | 'W' << 8 | 'Z';
+        return magic == SWF || magic == SWC || magic == SWZ;
     }
 
     static const int stagDoABC  = 72;
@@ -141,6 +144,20 @@ namespace avmshell
         parser.pos += abclen;
     }
 
+    // lzma-compressed data format:
+    // 5 bytes: LZMA properties
+    // 8 bytes: uncompressed size k (little-endian)
+    // k bytes: payload (the compressed data)
+
+    static const uint32_t lzmaHeaderSize = LZMA_PROPS_SIZE + 8;
+
+    struct lzma_compressed {
+        uint8_t unpackedSize[4];
+        uint8_t unpackedSizeHighBits[4]; // (not uint32_t; that injects padding)
+        uint8_t lzmaProps[LZMA_PROPS_SIZE];
+        uint8_t compressedPayload[1];    // payload is variable sized.
+    };
+
     /*
      * Execute a swf as follows:
      * skip the header
@@ -174,6 +191,37 @@ namespace avmshell
             parser = SwfParser(newswf);
             parser.pos = 0;
         }
+        else if (swf[0] == 'Z') {
+            parser.pos = 4;
+            struct lzma_compressed {
+                uint8_t lzmaProps[LZMA_PROPS_SIZE];
+                uint8_t compressedPayload[1];    // payload is variable sized.
+            };
+            
+            struct lzma_compressed *srcOverlay = (struct lzma_compressed*)&swf[12];
+            avmplus::ScriptBuffer newswf(core->newScriptBuffer(swflen));
+
+            parser.pos += 4;
+            uint32_t lengthOfCompressedPayload = parser.readU32();
+
+            size_t srcLen = lengthOfCompressedPayload;
+            size_t destLen = swflen;
+            int retcode = SZ_OK;
+
+            retcode = LzmaUncompress((unsigned char *)newswf.getBuffer(), &destLen,
+                                     srcOverlay->compressedPayload, &srcLen,
+                                     srcOverlay->lzmaProps, LZMA_PROPS_SIZE);
+
+            if (retcode != SZ_OK) {
+                core->console << filename << ": Unpack swf via lzma failed.\n";
+                return false;
+            }
+
+            swf = newswf;
+            parser = SwfParser(newswf);
+            parser.pos = 0;
+        }
+
         if (swflen != swf.getSize()) {
             if (!test_only)
                 core->console << filename <<
