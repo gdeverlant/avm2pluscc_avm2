@@ -7,6 +7,13 @@
 #ifndef _H_nativegen_header_shell_toplevel
 #define _H_nativegen_header_shell_toplevel
 
+/* clang (and gcc) knows about the compiler builtin _Pragma, Visual Studio 2008 C++ compiler does not */
+#ifdef __clang__
+   #define _PRAGMAFUNCTION(...) _Pragma(__VA_ARGS__)
+#else
+   #define _PRAGMAFUNCTION(...) 
+#endif
+
 namespace avmplus {
     class ArrayObject; // Array
     class ByteArrayObject; // flash.utils::ByteArray
@@ -24,6 +31,8 @@ namespace avmplus {
     class EndianClass; // flash.utils::Endian$
     class EndianObject; // flash.utils::Endian
     class FileObject; // avmplus::File
+    class IKernelClass; // flash.utils::IKernel$
+    class IKernelInterface; // flash.utils::IKernel
     class ITestClass; // avmplus::ITest$
     class ITestInterface; // avmplus::ITest
     class NativeBaseAS3Class; // avmshell::NativeBaseAS3$
@@ -40,6 +49,8 @@ namespace avmplus {
     class ShellCoreFriend1Object; // avmshell::ShellCoreFriend1
     class ShellCoreFriend2Class; // avmshell::ShellCoreFriend2$
     class ShellCoreFriend2Object; // avmshell::ShellCoreFriend2
+    class ShellPosixClass; // flash.utils::ShellPosix$
+    class ShellPosixObject; // flash.utils::ShellPosix
     class StackFrameClass; // flash.sampler::StackFrame$
     class StackFrameObject; // flash.sampler::StackFrame
     class String; // String
@@ -179,17 +190,19 @@ const uint32_t abcclass_avmshell_SubclassOfAbstractRestrictedBase = 39;
 const uint32_t abcclass_avmshell_NativeBaseExtender1 = 40;
 const uint32_t abcclass_avmshell_NativeBaseExtender2 = 41;
 const uint32_t abcclass_avmplus_Domain = 42;
-const uint32_t abcclass_flash_sampler_StackFrame = 43;
-const uint32_t abcclass_flash_sampler_Sample = 44;
-const uint32_t abcclass_flash_sampler_ClassFactory = 45;
-const uint32_t abcclass_flash_sampler_NewObjectSample = 46;
-const uint32_t abcclass_flash_sampler_DeleteObjectSample = 47;
-const uint32_t abcclass_flash_trace_Trace = 48;
-const uint32_t abcclass_flash_utils_Endian = 49;
-const uint32_t abcclass_flash_system_WorkerState = 50;
-const uint32_t abcclass_flash_system_Worker = 51;
-const uint32_t abcclass_flash_system_WorkerEvent = 52;
-const uint32_t abcclass_flash_system_WorkerDomain = 53;
+const uint32_t abcclass_flash_utils_IKernel = 43;
+const uint32_t abcclass_flash_sampler_StackFrame = 44;
+const uint32_t abcclass_flash_sampler_Sample = 45;
+const uint32_t abcclass_flash_sampler_ClassFactory = 46;
+const uint32_t abcclass_flash_sampler_NewObjectSample = 47;
+const uint32_t abcclass_flash_sampler_DeleteObjectSample = 48;
+const uint32_t abcclass_flash_trace_Trace = 49;
+const uint32_t abcclass_flash_utils_Endian = 50;
+const uint32_t abcclass_flash_system_WorkerState = 51;
+const uint32_t abcclass_flash_system_Worker = 52;
+const uint32_t abcclass_flash_system_WorkerEvent = 53;
+const uint32_t abcclass_flash_system_WorkerDomain = 54;
+const uint32_t abcclass_flash_utils_ShellPosix = 55;
 
 /* methods */
 const uint32_t avmplus_ITest_avmplus_ITest_test = 38; // abc
@@ -270,46 +283,229 @@ const uint32_t avmplus_Domain_getClass = 198; // native
 const uint32_t avmplus_Domain_load = 199; // abc
 const uint32_t avmplus_Domain_domainMemory_get = 200; // native
 const uint32_t avmplus_Domain_domainMemory_set = 201; // native
-const uint32_t native_script_function_flash_sampler_getMasterString = 203; // native
-const uint32_t native_script_function_flash_sampler_getSavedThis = 204; // native
-const uint32_t native_script_function_flash_sampler_getLexicalScopes = 205; // native
-const uint32_t native_script_function_flash_sampler_isGetterSetter = 206; // native
-const uint32_t native_script_function_flash_sampler__getInvocationCount = 207; // native
-const uint32_t native_script_function_flash_sampler_getSampleCount = 211; // native
-const uint32_t native_script_function_flash_sampler__getSamples = 212; // native
-const uint32_t native_script_function_flash_sampler_getMemberNames = 214; // native
-const uint32_t native_script_function_flash_sampler_getSize = 215; // native
-const uint32_t native_script_function_flash_sampler__setSamplerCallback = 216; // native
-const uint32_t native_script_function_flash_sampler_sampleInternalAllocs = 219; // native
-const uint32_t native_script_function_flash_sampler_pauseSampling = 220; // native
-const uint32_t native_script_function_flash_sampler_stopSampling = 221; // native
-const uint32_t native_script_function_flash_sampler_startSampling = 222; // native
-const uint32_t native_script_function_flash_sampler_clearSamples = 223; // native
-const uint32_t flash_sampler_StackFrame_toString = 225; // abc
-const uint32_t flash_sampler_NewObjectSample_object_get = 232; // native
-const uint32_t flash_sampler_NewObjectSample_size_get = 233; // native
-const uint32_t flash_trace_Trace_setLevel = 239; // native
-const uint32_t flash_trace_Trace_getLevel = 240; // native
-const uint32_t flash_trace_Trace_setListener = 241; // native
-const uint32_t flash_trace_Trace_getListener = 242; // native
-const uint32_t flash_system_WorkerState_code = 249; // abc
-const uint32_t flash_system_Worker_current_get = 252; // abc
-const uint32_t flash_system_Worker_pr = 253; // native
-const uint32_t flash_system_Worker_state_get = 255; // native
-const uint32_t flash_system_Worker_start = 256; // native
-const uint32_t flash_system_Worker_isParentOf = 257; // native
-const uint32_t flash_system_Worker_isPrimordial_get = 258; // native
-const uint32_t flash_system_Worker_setSharedProperty = 259; // native
-const uint32_t flash_system_Worker_getSharedProperty = 260; // native
-const uint32_t flash_system_Worker_terminate = 261; // native
-const uint32_t flash_system_WorkerEvent_currentState_get = 264; // abc
-const uint32_t flash_system_WorkerEvent_previousState_get = 265; // abc
-const uint32_t flash_system_WorkerEvent_target_get = 266; // abc
-const uint32_t flash_system_WorkerDomain_current_get = 269; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 271; // abc
-const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 272; // abc
-const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 273; // native
-const uint32_t flash_system_WorkerDomain_listWorkers = 274; // native
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fork = 204; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_read = 205; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_write = 206; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_open = 207; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_close = 208; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_wait4 = 209; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_link = 210; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_unlink = 211; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_chdir = 212; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fchdir = 213; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_chmod = 214; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_chown = 215; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_lseek = 216; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getpid = 217; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setuid = 218; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getuid = 219; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_geteuid = 220; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_access = 221; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sync = 222; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_kill = 223; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getppid = 224; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_dup = 225; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_pipe = 226; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getegid = 227; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getgid = 228; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_ioctl = 229; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_revoke = 230; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_symlink = 231; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_umask = 232; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_chroot = 233; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_msync = 234; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_vfork = 235; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getgroups = 236; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setgroups = 237; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getpgrp = 238; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setpgid = 239; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getdtablesize = 240; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_dup2 = 241; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fcntl = 242; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fsync = 243; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setpriority = 244; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_socket = 245; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getpriority = 246; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setsockopt = 247; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_listen = 248; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sigsuspend = 249; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getrusage = 250; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getsockopt = 251; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_readv = 252; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_writev = 253; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fchown = 254; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fchmod = 255; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setreuid = 256; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setregid = 257; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_rename = 258; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_mkfifo = 259; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_shutdown = 260; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_socketpair = 261; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_mkdir = 262; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_rmdir = 263; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setsid = 264; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getdirentries = 265; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setgid = 266; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_setegid = 267; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_seteuid = 268; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_stat = 269; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fstat = 270; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_lstat = 271; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_pathconf = 272; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_fpathconf = 273; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getpgid = 274; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_semget = 275; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_msgget = 276; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_msgsnd = 277; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_msgrcv = 278; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_shmdt = 279; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_shmget = 280; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_clock_gettime = 281; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_nanosleep = 282; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_lchown = 283; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_getsid = 284; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sched_yield = 285; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sched_get_priority_max = 286; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sched_get_priority_min = 287; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sigprocmask = 288; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sigpending = 289; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_sigwait = 290; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_shm_unlink = 291; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_pselect = 292; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel___getcwd = 293; // abc
+const uint32_t flash_utils_IKernel_flash_utils_IKernel_issetugid = 294; // abc
+const uint32_t native_script_function_flash_sampler_getMasterString = 297; // native
+const uint32_t native_script_function_flash_sampler_getSavedThis = 298; // native
+const uint32_t native_script_function_flash_sampler_getLexicalScopes = 299; // native
+const uint32_t native_script_function_flash_sampler_isGetterSetter = 300; // native
+const uint32_t native_script_function_flash_sampler__getInvocationCount = 301; // native
+const uint32_t native_script_function_flash_sampler_getSampleCount = 305; // native
+const uint32_t native_script_function_flash_sampler__getSamples = 306; // native
+const uint32_t native_script_function_flash_sampler_getMemberNames = 308; // native
+const uint32_t native_script_function_flash_sampler_getSize = 309; // native
+const uint32_t native_script_function_flash_sampler__setSamplerCallback = 310; // native
+const uint32_t native_script_function_flash_sampler_sampleInternalAllocs = 313; // native
+const uint32_t native_script_function_flash_sampler_pauseSampling = 314; // native
+const uint32_t native_script_function_flash_sampler_stopSampling = 315; // native
+const uint32_t native_script_function_flash_sampler_startSampling = 316; // native
+const uint32_t native_script_function_flash_sampler_clearSamples = 317; // native
+const uint32_t flash_sampler_StackFrame_toString = 319; // abc
+const uint32_t flash_sampler_NewObjectSample_object_get = 326; // native
+const uint32_t flash_sampler_NewObjectSample_size_get = 327; // native
+const uint32_t flash_trace_Trace_setLevel = 333; // native
+const uint32_t flash_trace_Trace_getLevel = 334; // native
+const uint32_t flash_trace_Trace_setListener = 335; // native
+const uint32_t flash_trace_Trace_getListener = 336; // native
+const uint32_t flash_system_WorkerState_code = 343; // abc
+const uint32_t flash_system_Worker_current_get = 346; // abc
+const uint32_t flash_system_Worker_pr = 347; // native
+const uint32_t flash_system_Worker_state_get = 349; // native
+const uint32_t flash_system_Worker_start = 350; // native
+const uint32_t flash_system_Worker_isParentOf = 351; // native
+const uint32_t flash_system_Worker_isPrimordial_get = 352; // native
+const uint32_t flash_system_Worker_setSharedProperty = 353; // native
+const uint32_t flash_system_Worker_getSharedProperty = 354; // native
+const uint32_t flash_system_Worker_terminate = 355; // native
+const uint32_t flash_system_WorkerEvent_currentState_get = 358; // abc
+const uint32_t flash_system_WorkerEvent_previousState_get = 359; // abc
+const uint32_t flash_system_WorkerEvent_target_get = 360; // abc
+const uint32_t flash_system_WorkerDomain_current_get = 363; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromByteArray = 365; // abc
+const uint32_t flash_system_WorkerDomain_createWorkerFromPrimordial = 366; // abc
+const uint32_t flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal = 367; // native
+const uint32_t flash_system_WorkerDomain_listWorkers = 368; // native
+const uint32_t flash_utils_ShellPosix_getAppPath = 371; // native
+const uint32_t flash_utils_ShellPosix_fork = 372; // native
+const uint32_t flash_utils_ShellPosix_read = 373; // native
+const uint32_t flash_utils_ShellPosix_write = 374; // native
+const uint32_t flash_utils_ShellPosix_open = 375; // native
+const uint32_t flash_utils_ShellPosix_close = 376; // native
+const uint32_t flash_utils_ShellPosix_wait4 = 377; // native
+const uint32_t flash_utils_ShellPosix_link = 378; // native
+const uint32_t flash_utils_ShellPosix_unlink = 379; // native
+const uint32_t flash_utils_ShellPosix_chdir = 380; // native
+const uint32_t flash_utils_ShellPosix_fchdir = 381; // native
+const uint32_t flash_utils_ShellPosix_chmod = 382; // native
+const uint32_t flash_utils_ShellPosix_chown = 383; // native
+const uint32_t flash_utils_ShellPosix_lseek = 384; // native
+const uint32_t flash_utils_ShellPosix_getpid = 385; // native
+const uint32_t flash_utils_ShellPosix_setuid = 386; // native
+const uint32_t flash_utils_ShellPosix_getuid = 387; // native
+const uint32_t flash_utils_ShellPosix_geteuid = 388; // native
+const uint32_t flash_utils_ShellPosix_access = 389; // native
+const uint32_t flash_utils_ShellPosix_sync = 390; // native
+const uint32_t flash_utils_ShellPosix_kill = 391; // native
+const uint32_t flash_utils_ShellPosix_getppid = 392; // native
+const uint32_t flash_utils_ShellPosix_dup = 393; // native
+const uint32_t flash_utils_ShellPosix_pipe = 394; // native
+const uint32_t flash_utils_ShellPosix_getegid = 395; // native
+const uint32_t flash_utils_ShellPosix_getgid = 396; // native
+const uint32_t flash_utils_ShellPosix_ioctl = 397; // native
+const uint32_t flash_utils_ShellPosix_revoke = 398; // native
+const uint32_t flash_utils_ShellPosix_symlink = 399; // native
+const uint32_t flash_utils_ShellPosix_umask = 400; // native
+const uint32_t flash_utils_ShellPosix_chroot = 401; // native
+const uint32_t flash_utils_ShellPosix_msync = 402; // native
+const uint32_t flash_utils_ShellPosix_vfork = 403; // native
+const uint32_t flash_utils_ShellPosix_getgroups = 404; // native
+const uint32_t flash_utils_ShellPosix_setgroups = 405; // native
+const uint32_t flash_utils_ShellPosix_getpgrp = 406; // native
+const uint32_t flash_utils_ShellPosix_setpgid = 407; // native
+const uint32_t flash_utils_ShellPosix_getdtablesize = 408; // native
+const uint32_t flash_utils_ShellPosix_dup2 = 409; // native
+const uint32_t flash_utils_ShellPosix_fcntl = 410; // native
+const uint32_t flash_utils_ShellPosix_fsync = 411; // native
+const uint32_t flash_utils_ShellPosix_setpriority = 412; // native
+const uint32_t flash_utils_ShellPosix_socket = 413; // native
+const uint32_t flash_utils_ShellPosix_getpriority = 414; // native
+const uint32_t flash_utils_ShellPosix_setsockopt = 415; // native
+const uint32_t flash_utils_ShellPosix_listen = 416; // native
+const uint32_t flash_utils_ShellPosix_sigsuspend = 417; // native
+const uint32_t flash_utils_ShellPosix_getrusage = 418; // native
+const uint32_t flash_utils_ShellPosix_getsockopt = 419; // native
+const uint32_t flash_utils_ShellPosix_readv = 420; // native
+const uint32_t flash_utils_ShellPosix_writev = 421; // native
+const uint32_t flash_utils_ShellPosix_fchown = 422; // native
+const uint32_t flash_utils_ShellPosix_fchmod = 423; // native
+const uint32_t flash_utils_ShellPosix_setreuid = 424; // native
+const uint32_t flash_utils_ShellPosix_setregid = 425; // native
+const uint32_t flash_utils_ShellPosix_rename = 426; // native
+const uint32_t flash_utils_ShellPosix_mkfifo = 427; // native
+const uint32_t flash_utils_ShellPosix_shutdown = 428; // native
+const uint32_t flash_utils_ShellPosix_socketpair = 429; // native
+const uint32_t flash_utils_ShellPosix_mkdir = 430; // native
+const uint32_t flash_utils_ShellPosix_rmdir = 431; // native
+const uint32_t flash_utils_ShellPosix_setsid = 432; // native
+const uint32_t flash_utils_ShellPosix_getdirentries = 433; // native
+const uint32_t flash_utils_ShellPosix_setgid = 434; // native
+const uint32_t flash_utils_ShellPosix_setegid = 435; // native
+const uint32_t flash_utils_ShellPosix_seteuid = 436; // native
+const uint32_t flash_utils_ShellPosix_stat = 437; // native
+const uint32_t flash_utils_ShellPosix_fstat = 438; // native
+const uint32_t flash_utils_ShellPosix_lstat = 439; // native
+const uint32_t flash_utils_ShellPosix_pathconf = 440; // native
+const uint32_t flash_utils_ShellPosix_fpathconf = 441; // native
+const uint32_t flash_utils_ShellPosix_getpgid = 442; // native
+const uint32_t flash_utils_ShellPosix_semget = 443; // native
+const uint32_t flash_utils_ShellPosix_msgget = 444; // native
+const uint32_t flash_utils_ShellPosix_msgsnd = 445; // native
+const uint32_t flash_utils_ShellPosix_msgrcv = 446; // native
+const uint32_t flash_utils_ShellPosix_shmdt = 447; // native
+const uint32_t flash_utils_ShellPosix_shmget = 448; // native
+const uint32_t flash_utils_ShellPosix_clock_gettime = 449; // native
+const uint32_t flash_utils_ShellPosix_nanosleep = 450; // native
+const uint32_t flash_utils_ShellPosix_lchown = 451; // native
+const uint32_t flash_utils_ShellPosix_getsid = 452; // native
+const uint32_t flash_utils_ShellPosix_sched_yield = 453; // native
+const uint32_t flash_utils_ShellPosix_sched_get_priority_max = 454; // native
+const uint32_t flash_utils_ShellPosix_sched_get_priority_min = 455; // native
+const uint32_t flash_utils_ShellPosix_sigprocmask = 456; // native
+const uint32_t flash_utils_ShellPosix_sigpending = 457; // native
+const uint32_t flash_utils_ShellPosix_sigwait = 458; // native
+const uint32_t flash_utils_ShellPosix_shm_unlink = 459; // native
+const uint32_t flash_utils_ShellPosix_pselect = 460; // native
+const uint32_t flash_utils_ShellPosix___getcwd = 461; // native
+const uint32_t flash_utils_ShellPosix_issetugid = 462; // native
 
 extern avmplus::Atom avmplus_Domain_currentDomain_get_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom avmplus_Domain_currentDomain_get_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -387,6 +583,190 @@ extern avmplus::Atom flash_system_WorkerDomain_private_createWorkerFromByteArray
 extern avmplus::Atom flash_system_WorkerDomain_private_createWorkerFromByteArrayInternal_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom flash_system_WorkerDomain_listWorkers_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom flash_system_WorkerDomain_listWorkers_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getAppPath_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getAppPath_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fork_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fork_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_read_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_read_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_write_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_write_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_open_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_open_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_close_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_close_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_wait4_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_wait4_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_link_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_link_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_unlink_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_unlink_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chdir_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chdir_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchdir_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchdir_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chmod_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chmod_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chown_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chown_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lseek_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lseek_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setuid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setuid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getuid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getuid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_geteuid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_geteuid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_access_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_access_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sync_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sync_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_kill_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_kill_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getppid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getppid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_dup_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_dup_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pipe_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pipe_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getegid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getegid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getgid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getgid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_ioctl_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_ioctl_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_revoke_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_revoke_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_symlink_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_symlink_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_umask_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_umask_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chroot_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_chroot_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msync_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msync_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_vfork_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_vfork_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getgroups_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getgroups_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setgroups_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setgroups_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpgrp_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpgrp_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setpgid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setpgid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getdtablesize_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getdtablesize_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_dup2_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_dup2_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fcntl_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fcntl_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fsync_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fsync_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setpriority_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setpriority_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_socket_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_socket_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpriority_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpriority_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setsockopt_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setsockopt_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_listen_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_listen_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigsuspend_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigsuspend_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getrusage_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getrusage_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getsockopt_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getsockopt_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_readv_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_readv_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_writev_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_writev_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchown_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchown_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchmod_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fchmod_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setreuid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setreuid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setregid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setregid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_rename_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_rename_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_mkfifo_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_mkfifo_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shutdown_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shutdown_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_socketpair_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_socketpair_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_mkdir_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_mkdir_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_rmdir_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_rmdir_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setsid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setsid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getdirentries_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getdirentries_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setgid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setgid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setegid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_setegid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_seteuid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_seteuid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_stat_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_stat_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fstat_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fstat_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lstat_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lstat_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pathconf_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pathconf_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fpathconf_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_fpathconf_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpgid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getpgid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_semget_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_semget_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgget_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgget_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgsnd_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgsnd_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgrcv_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_msgrcv_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shmdt_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shmdt_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shmget_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shmget_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_clock_gettime_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_clock_gettime_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_nanosleep_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_nanosleep_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lchown_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_lchown_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getsid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_getsid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_yield_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_yield_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_get_priority_max_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_get_priority_max_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_get_priority_min_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sched_get_priority_min_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigprocmask_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigprocmask_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigpending_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigpending_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigwait_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_sigwait_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shm_unlink_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_shm_unlink_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pselect_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_pselect_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix___getcwd_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix___getcwd_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_issetugid_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
+extern avmplus::Atom flash_utils_ShellPosix_issetugid_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern double avmplus_MI_plus_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern double avmplus_MI_plus_sampler_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
 extern avmplus::Atom avmplus_System_exit_thunk(MethodEnv* env, uint32_t argc, Atom* argv);
@@ -2401,6 +2781,87 @@ class avmshell_ShellWorkerDomainObjectSlots
 
 //-----------------------------------------------------------
 
+//-----------------------------------------------------------
+// flash.utils::ShellPosix$
+//-----------------------------------------------------------
+class avmplus_ShellPosixClassSlots
+{
+    friend class SlotOffsetsAndAsserts;
+    friend class avmplus::ShellPosixClass;
+};
+#define DECLARE_SLOTS_ShellPosixClass \
+    public: \
+        static avmplus::ClassClosure* FASTCALL createClassClosure(avmplus::VTable* cvtable); \
+    public: \
+        static avmplus::ScriptObject* FASTCALL createInstanceProc(avmplus::ClassClosure*); \
+    public: \
+        AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); ) \
+    private: \
+        AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } ) \
+    public: \
+        inline GCRef<avmplus::ShellPosixObject> constructObject() \
+        { \
+            avmplus::Atom args[1] = { thisRef.reinterpretCast<avmplus::ScriptObject>()->atom() }; \
+            avmplus::Atom const result = this->construct(0, args); \
+            return GCRef<avmplus::ShellPosixObject>((avmplus::ShellPosixObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+    public: \
+        REALLY_INLINE bool isType(avmplus::Atom value) \
+        { \
+            return isTypeImpl(value); \
+        } \
+        REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            return isTypeImpl(value->atom()); \
+        } \
+        REALLY_INLINE GCRef<avmplus::ShellPosixObject> asType(avmplus::Atom value) \
+        { \
+            avmplus::Atom const result = asTypeImpl(value); \
+            return GCRef<avmplus::ShellPosixObject>((avmplus::ShellPosixObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::ShellPosixObject> asType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            avmplus::Atom const result = asTypeImpl(value->atom()); \
+            return GCRef<avmplus::ShellPosixObject>((avmplus::ShellPosixObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::ShellPosixObject> coerceToType(avmplus::Atom value) \
+        { \
+            avmplus::Atom const result = coerceToTypeImpl(value); \
+            return GCRef<avmplus::ShellPosixObject>((avmplus::ShellPosixObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+        REALLY_INLINE GCRef<avmplus::ShellPosixObject> coerceToType(GCRef<avmplus::ScriptObject> value) \
+        { \
+            avmplus::Atom const result = coerceToTypeImpl(value->atom()); \
+            return GCRef<avmplus::ShellPosixObject>((avmplus::ShellPosixObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
+        } \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+
+//-----------------------------------------------------------
+
+//-----------------------------------------------------------
+// flash.utils::ShellPosix
+//-----------------------------------------------------------
+class avmplus_ShellPosixObjectSlots
+{
+    friend class SlotOffsetsAndAsserts;
+    friend class avmplus::ShellPosixObject;
+};
+#define DECLARE_SLOTS_ShellPosixObject \
+    public: \
+        AvmThunk_DEBUG_ONLY( virtual avmplus::Atom construct(int argc, avmplus::Atom* argv); ) \
+    private: \
+        AvmThunk_DEBUG_ONLY( virtual void createInstance() { AvmAssert(0); } ) \
+    public: \
+        REALLY_INLINE GCRef<avmplus::IKernelInterface> as_IKernelInterface() \
+        { \
+            return GCRef<avmplus::IKernelInterface>((avmplus::IKernelInterface*)this); \
+        } \
+    private: \
+        friend class avmplus::NativeID::SlotOffsetsAndAsserts; \
+
+//-----------------------------------------------------------
+
 } }
 namespace avmplus {
 
@@ -2414,8 +2875,8 @@ class shell_toplevelClassManifest : public avmplus::ClassManifestBase
     friend class avmplus::DoubleVectorClass;
     friend class avmplus::ObjectVectorClass;
 private:
-    REALLY_INLINE shell_toplevelClassManifest(avmplus::ScriptEnv* e) : ClassManifestBase(54, e) { }
-    REALLY_INLINE static shell_toplevelClassManifest* create(avmplus::ScriptEnv* e) { return new (MMgc::GC::GetGC(e), MMgc::kExact, sizeof(ClassClosure*)*53) shell_toplevelClassManifest(e); }
+    REALLY_INLINE shell_toplevelClassManifest(avmplus::ScriptEnv* e) : ClassManifestBase(56, e) { }
+    REALLY_INLINE static shell_toplevelClassManifest* create(avmplus::ScriptEnv* e) { return new (MMgc::GC::GetGC(e), MMgc::kExact, sizeof(ClassClosure*)*55) shell_toplevelClassManifest(e); }
 public:
     REALLY_INLINE GCRef<avmshell::AbstractBaseClass> get_AbstractBaseClass() { return (avmshell::AbstractBaseClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_AbstractBase)); }
     REALLY_INLINE GCRef<avmshell::AbstractRestrictedBaseClass> get_AbstractRestrictedBaseClass() { return (avmshell::AbstractRestrictedBaseClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_AbstractRestrictedBase)); }
@@ -2427,6 +2888,7 @@ public:
     REALLY_INLINE GCRef<avmplus::DomainClass> get_DomainClass() { return (avmplus::DomainClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmplus_Domain)); }
     REALLY_INLINE GCRef<avmplus::EndianClass> get_EndianClass() { return (avmplus::EndianClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_utils_Endian)); }
     REALLY_INLINE GCRef<avmshell::FileClass> get_FileClass() { return (avmshell::FileClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmplus_File)); }
+    REALLY_INLINE GCRef<avmplus::IKernelClass> get_IKernelClass() { return (avmplus::IKernelClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_utils_IKernel)); }
     REALLY_INLINE GCRef<avmplus::ITestClass> get_ITestClass() { return (avmplus::ITestClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmplus_ITest)); }
     REALLY_INLINE GCRef<avmshell::MIClass> get_MIClass() { return (avmshell::MIClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmplus_MI)); }
     REALLY_INLINE GCRef<avmplus::NativeBaseAS3Class> get_NativeBaseAS3Class() { return (avmplus::NativeBaseAS3Class*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_NativeBaseAS3)); }
@@ -2441,6 +2903,7 @@ public:
     REALLY_INLINE GCRef<avmplus::SampleClass> get_SampleClass() { return (avmplus::SampleClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_sampler_Sample)); }
     REALLY_INLINE GCRef<avmplus::ShellCoreFriend1Class> get_ShellCoreFriend1Class() { return (avmplus::ShellCoreFriend1Class*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_ShellCoreFriend1)); }
     REALLY_INLINE GCRef<avmplus::ShellCoreFriend2Class> get_ShellCoreFriend2Class() { return (avmplus::ShellCoreFriend2Class*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_ShellCoreFriend2)); }
+    REALLY_INLINE GCRef<avmplus::ShellPosixClass> get_ShellPosixClass() { return (avmplus::ShellPosixClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_utils_ShellPosix)); }
     REALLY_INLINE GCRef<avmplus::StackFrameClass> get_StackFrameClass() { return (avmplus::StackFrameClass*)(lazyInitClass(avmplus::NativeID::abcclass_flash_sampler_StackFrame)); }
     REALLY_INLINE GCRef<avmplus::SubclassOfAbstractBaseClass> get_SubclassOfAbstractBaseClass() { return (avmplus::SubclassOfAbstractBaseClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_SubclassOfAbstractBase)); }
     REALLY_INLINE GCRef<avmplus::SubclassOfAbstractRestrictedBaseClass> get_SubclassOfAbstractRestrictedBaseClass() { return (avmplus::SubclassOfAbstractRestrictedBaseClass*)(lazyInitClass(avmplus::NativeID::abcclass_avmshell_SubclassOfAbstractRestrictedBase)); }

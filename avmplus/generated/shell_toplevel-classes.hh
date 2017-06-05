@@ -2404,6 +2404,64 @@ private:
 
 #define avmplus_NativeBaseExtender2Class_isExactInterlock 1
 //-----------------------------------------------------------
+// flash.utils::IKernel
+//-----------------------------------------------------------
+class IKernelInterface : public avmplus::ScriptObject
+{
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    friend class avmplus::IKernelClass;
+    REALLY_INLINE explicit IKernelInterface(VTable* ivtable, ScriptObject* delegate) : avmplus::ScriptObject(ivtable, delegate) {}
+private:
+    explicit IKernelInterface(const IKernelInterface&); // unimplemented
+    void operator=(const IKernelInterface&); // unimplemented
+};
+
+//-----------------------------------------------------------
+// flash.utils::IKernel$
+//-----------------------------------------------------------
+class IKernelClass : public avmplus::ClassClosure
+{
+public:
+    REALLY_INLINE bool isType(avmplus::Atom value)
+    {
+        return isTypeImpl(value);
+    }
+    REALLY_INLINE bool isType(GCRef<avmplus::ScriptObject> value)
+    {
+        return isTypeImpl(value->atom());
+    }
+    REALLY_INLINE GCRef<avmplus::IKernelInterface> asType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = asTypeImpl(value);
+        return GCRef<avmplus::IKernelInterface>((avmplus::IKernelInterface*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::IKernelInterface> asType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = asTypeImpl(value->atom());
+        return GCRef<avmplus::IKernelInterface>((avmplus::IKernelInterface*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::IKernelInterface> coerceToType(avmplus::Atom value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value);
+        return GCRef<avmplus::IKernelInterface>((avmplus::IKernelInterface*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+    REALLY_INLINE GCRef<avmplus::IKernelInterface> coerceToType(GCRef<avmplus::ScriptObject> value)
+    {
+        avmplus::Atom const result = coerceToTypeImpl(value->atom());
+        return GCRef<avmplus::IKernelInterface>((avmplus::IKernelInterface*)(avmplus::AvmCore::atomToScriptObject(result)));
+    }
+private:
+    friend class avmplus::NativeID::SlotOffsetsAndAsserts;
+protected:
+    inline explicit IKernelClass(VTable* cvtable) : avmplus::ClassClosure(cvtable) { createVanillaPrototype(); }
+private:
+    explicit IKernelClass(const IKernelClass&); // unimplemented
+    void operator=(const IKernelClass&); // unimplemented
+};
+
+//-----------------------------------------------------------
 // flash.sampler::StackFrame
 //-----------------------------------------------------------
 class StackFrameObject : public avmplus::ScriptObject

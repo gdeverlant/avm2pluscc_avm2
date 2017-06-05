@@ -7,6 +7,13 @@
 #ifndef _H_nativegen_header_builtin
 #define _H_nativegen_header_builtin
 
+/* clang (and gcc) knows about the compiler builtin _Pragma, Visual Studio 2008 C++ compiler does not */
+#ifdef __clang__
+   #define _PRAGMAFUNCTION(...) _Pragma(__VA_ARGS__)
+#else
+   #define _PRAGMAFUNCTION(...) 
+#endif
+
 namespace avmplus {
     class ArgumentErrorClass; // ArgumentError$
     class ArgumentErrorObject; // ArgumentError
@@ -1912,7 +1919,10 @@ private:
     public: \
         inline GCRef<avmplus::FunctionObject> call_createEmptyFunction() \
         { \
+            _PRAGMAFUNCTION("clang diagnostic push") \
+            _PRAGMAFUNCTION("clang diagnostic ignored \"-Warray-bounds\"") \
             avmplus::MethodEnv* const method = vtable->methods[5]; \
+            _PRAGMAFUNCTION("clang diagnostic pop") \
             avmplus::Atom const result = method->coerceEnter(thisRef.reinterpretCast<avmplus::ScriptObject>()->atom()); \
             return GCRef<avmplus::FunctionObject>((avmplus::FunctionObject*)(avmplus::AvmCore::atomToScriptObject(result))); \
         } \
