@@ -668,9 +668,9 @@ namespace avmplus {
 	}
 
 	int ShellPosixObject::readv(int A_fd, int A_iovp, int A_iovcnt, int errnoPtr) {
-		char *A_iovp_ptr = (char *) domainMemoryPtr(this, A_iovp);
-		struct iovec A_iovp_tmp;
-		memmove(&A_iovp_tmp, A_iovp_ptr, sizeof(struct iovec));
+		// char *A_iovp_ptr = (char *) domainMemoryPtr(this, A_iovp);
+		// struct iovec A_iovp_tmp;
+		// memmove(&A_iovp_tmp, A_iovp_ptr, sizeof(struct iovec));
 		int saved_err = errno;
 		errno = 0;
 		int i;
@@ -698,19 +698,19 @@ namespace avmplus {
 	}
 
 	int ShellPosixObject::writev(int A_fd, int A_iovp, int A_iovcnt, int errnoPtr) {
-		char *A_iovp_ptr = (char *) domainMemoryPtr(this, A_iovp);
-		struct iovec A_iovp_tmp;
-		memmove(&A_iovp_tmp, A_iovp_ptr, sizeof(struct iovec));
+		// char *A_iovp_ptr = (char *) domainMemoryPtr(this, A_iovp);
+		// struct iovec A_iovp_tmp;
+		// memmove(&A_iovp_tmp, A_iovp_ptr, sizeof(struct iovec));
 		int saved_err = errno;
 		errno = 0;
 		int i;
 		struct iovec tmp_iovec[A_iovcnt];
 		char *vecp = (char *)domainMemoryPtr(this, A_iovp);
 		for (i = 0; i < A_iovcnt; i++) {
-			int nbytes = *(vecp + (i * 8) + 4);
-			char *tmp = (char *)malloc(nbytes);
 			int offset = *((int *) (vecp + (i * 8)));
 			void *datap = domainMemoryPtr(this, offset);
+			int nbytes = *((int *) (vecp + (i * 8) + 4));
+			char *tmp = (char *)malloc(nbytes);
 			memmove(tmp, (void *) datap, nbytes);
 			tmp_iovec[i].iov_base = tmp;
 			tmp_iovec[i].iov_len = nbytes;

@@ -808,7 +808,7 @@ namespace avmplus
         {
             // Copy instance and args to local frame
             const int param_count = ms->param_count();
-            for (int i=0, n = _argc < param_count ? _argc : param_count; i <= n; i++)
+            for (int i=0, n = (const int)_argc < param_count ? (const int)_argc : param_count; i <= n; i++)
                 framep[i] = _atomv[i];
 
             // Store original value of argc for createRest and createArguments.
