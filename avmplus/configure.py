@@ -86,6 +86,10 @@ def _setSDKParams(sdk_version, os_ver, xcode_version):
         os_ver,sdk_number = '10.11','10.11'
         if xcode_version is None:
             xcode_version = '7'
+    elif sdk_version == '1012':
+        os_ver,sdk_number = '10.12','10.12'
+        if xcode_version is None:
+            xcode_version = '8'
     elif sdk_version == '110':
         os_ver,sdk_number = '11.0','11.0'
         if xcode_version is None:
@@ -335,7 +339,8 @@ if config.getCompiler() == 'GCC':
         APP_CXXFLAGS += "-Wall -Wcast-align -Wdisabled-optimization -Wextra -Wformat=2 -Winit-self -Winvalid-pch -Wno-invalid-offsetof -Wno-switch "\
                        "-Wparentheses -Wpointer-arith -Wreorder -Wsign-compare -Wunused-parameter -Wwrite-strings -Wno-ctor-dtor-privacy -Woverloaded-virtual "\
                        "-Wsign-promo -Wno-char-subscripts -fmessage-length=0 -fno-exceptions -fno-rtti -fno-check-new -fstrict-aliasing -fsigned-char  "
-        APP_CXXFLAGS += _setGCCVersionedFlags(APP_CXXFLAGS, GCC_MAJOR_VERSION, GCC_MINOR_VERSION, cpu)
+        if the_os != 'darwin':
+            APP_CXXFLAGS += _setGCCVersionedFlags(APP_CXXFLAGS, GCC_MAJOR_VERSION, GCC_MINOR_VERSION, cpu)
 
     if cpu == 'sh4':
         APP_CXXFLAGS += "-mieee -Wno-cast-align "
@@ -454,7 +459,7 @@ if the_os == "darwin":
                          '_MAC': None,
                          'AVMPLUS_MAC': None,
                          'TARGET_RT_MAC_MACHO': 1})
-    APP_CXXFLAGS += "-fpascal-strings -faltivec -fasm-blocks "
+    APP_CXXFLAGS += "-fpascal-strings -fasm-blocks "
 
     # If an sdk is selected align OS and gcc/g++ versions to it
     os_ver,sdk_path = _setSDKParams(o.mac_sdk, os_ver, o.mac_xcode)
@@ -462,7 +467,7 @@ if the_os == "darwin":
     config.subst("MACOSX_DEPLOYMENT_TARGET",os_ver)
 
     if cpu == 'ppc64':
-        APP_CXXFLAGS += "-arch ppc64 "
+        APP_CXXFLAGS += "-arch ppc64 -faltivec"
         APP_CFLAGS += "-arch ppc64 "
         OS_LDFLAGS += "-arch ppc64 "
     elif cpu == 'x86_64':

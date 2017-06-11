@@ -54,7 +54,10 @@ def _configSub(ostest, cputest, options):
     if re.search(r'^i(\d86|86pc|x86)$', cputest):
         cpu = 'i686'
     elif re.search('^(x86_64|amd64)$', cputest):
-        cpu = 'i686' # force 32bit builds for now
+        if os == 'darwin':
+            cpu = 'x86_64'
+        else:
+            cpu = 'i686' # force 32bit builds for now
     elif re.search('^(ppc64|powerpc64)$', cputest):
         cpu = 'ppc64'
     elif re.search('^(ppc|powerpc|Power Macintosh)$', cputest):

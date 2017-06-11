@@ -38,7 +38,7 @@
 *.dsp -crlf
 *.dsw -crlf
 *.sln -crlf
-*.vcproj -crlf
+*.vcproj* -crlf
 
 # Explicit declaration of binary files that should not be modified
 *.abc binary

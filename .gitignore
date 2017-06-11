@@ -39,3 +39,4 @@ avmplus/platform/win32/obj2013/
 *.pyc
 build*/
 avmplus/utils/asc.uris.txt
+avmshell*

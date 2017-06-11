@@ -23,6 +23,11 @@ else ifneq (,$(findstring MINGW,$(UNAME)))
 	$?BUILD:=build.mingw32
 	$?EXE_EXT:=.exe
 	$?LDFLAGS:=
+else ifneq (,$(findstring Darwin,$(UNAME)))
+	$?BUILD:=build.darwin
+	$?EXE_EXT:=
+	$?LDFLAGS:=
+	$?GCC_WARNINGS_IGNORING:=-Wno-deprecated
 else
 	$?BUILD:=build
 	$?EXE_EXT:=
