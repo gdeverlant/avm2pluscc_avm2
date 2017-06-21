@@ -28,6 +28,7 @@ else ifneq (,$(findstring Darwin,$(UNAME)))
 	$?EXE_EXT:=
 	$?LDFLAGS:=
 	$?GCC_WARNINGS_IGNORING:=-Wno-deprecated
+	$?THREADS=$(shell sysctl -n hw.ncpu)
 else
 	$?BUILD:=build
 	$?EXE_EXT:=
