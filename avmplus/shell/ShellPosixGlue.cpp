@@ -677,7 +677,7 @@ namespace avmplus {
 		struct iovec tmp_iovec[A_iovcnt];
 		char *vecp = (char *)domainMemoryPtr(this, A_iovp);
 		for (i = 0; i < A_iovcnt; i++) {
-			int nbytes = *(vecp + (i * 8) + 4);
+			int nbytes = *((int *) (vecp + (i * 8) + 4));
 			char *tmp = (char *)malloc(nbytes);
 			tmp_iovec[i].iov_base = tmp;
 			tmp_iovec[i].iov_len = nbytes;
