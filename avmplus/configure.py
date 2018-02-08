@@ -128,7 +128,7 @@ def _setGCCVersionedFlags(FLAGS, MAJOR_VERSION, MINOR_VERSION, current_cpu):
             if (MAJOR_VERSION == 4 and MINOR_VERSION == 6): # 4.6
                 FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable "
             if (MAJOR_VERSION == 4 and MINOR_VERSION == 8): # 4.8
-                FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-local-typedefs -Wno-sizeof-pointer-memaccess "
+                FLAGS += "-Wno-psabi -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-local-typedefs -Wno-sizeof-pointer-memaccess -Wno-narrowing "
     return FLAGS
 
 o = build.getopt.Options()
